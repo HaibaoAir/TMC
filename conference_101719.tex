@@ -1,0 +1,252 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{autobreak}
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proof}{Proof}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Conference Paper Title*\\
+{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+should not be used}
+\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+This document is a model and instructions for \LaTeX.
+This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
+or Math in Paper Title or Abstract.
+\end{abstract}
+
+\begin{IEEEkeywords}
+component, formatting, style, styling, insert
+\end{IEEEkeywords}
+
+\section{Introduction}
+This document is a model and instructions for \LaTeX.
+Please observe the conference page limits. 
+
+\section{System Model}
+\subsection{the Utility Function of Center Server}
+\begin{alignat}{2}
+    \mathop{\min}_{L(t)} & \sum_{t=1}^{T} \frac{1}{\sqrt{D(t)T}} + \frac{1}{T} + R \\
+    \text{s.t.} & T = \max\{T | \sum_{t=1}^{T} L(t) \le \theta\} \\
+\end{alignat}
+\subsection{the Utility Function of Clients}
+\begin{alignat}{2}
+    \mathop{\max}_{D_k(t), v_k(t)} & \sum_{t=1}^{T} \frac{D_k(t)}{\sum_{i=1}^{N} D_i(t)} R - \alpha_k {v_k(t)}^2 - \beta_k {\xi_k\frac{{c_k}^3{D_k(t)}^3}{(L(t) - L_{com})^2}} \\
+    \text{s.t.} & D_k(t + 1) = \gamma D_k(t) + v_k(t)(L(t) - L_{com})
+\end{alignat}
+
+\section{Algorithm}
+
+\subsection{Optimal Decision in Stage \Rmnum{2}}
+First of all, it makes sense for the following assumptions:
+\begin{alignat}{2}
+    f(B_k^t, \varepsilon_k^t) = & \log(B_k^t, \varepsilon_k^t) \\
+    g(B_k^t) = & {B_k^t}^2 \\
+    h(\varepsilon_k^t) = & {\varepsilon_k^t}^2
+\end{alignat}
+There are some key challenges while finding the optimal decision.
+First, imcomplete infomation.
+Besides, long term constraint.
+\subsubsection{Mean Field Approach for Imcomplete Information}
+Besides, to overcome the problem of imcomplete information about other clients during the decision of control variable, we will introduce a mean-field term to estimate the global information. 
+More specifically, we define $\phi^t=\sum_{i=1}^N \log(B_i^t \varepsilon_i^t)$ and replace the corresponding part in the objective function with it. 
+From the prespective of mathematic, $\phi^t$ is a given function and have no relationship with other clients' decision, so the decoupling is accomplished.
+In the next section, we will also provide a fixed point algorithm to secure the value of $\phi^t$.
+By introducing the mean-field term, we have the following problem:
+\begin{alignat}{2}
+    \mathop{\max}_{B_k^t, \varepsilon_k^t} & \sum_{t=1}^T {\log(B_k^t\varepsilon_k^t) \over \phi^t}R^t-\alpha_k {B_k^t}^2-\beta_k {\varepsilon_k^t}^2\\
+    \text{s.t.} & \sum_{t=1}^T\xi_kc_kf_k^2B_k^t \leq n_k \\
+                & \sum_{t=1}^T\varepsilon_k^t \leq m_k \\
+                & B_k^t \in [0, B_k^{max}]  
+\end{alignat}
+
+\subsubsection{Lyapunov-Based Optimization for Long-Term Constraint}
+Under the long-term computing resource constraint and privacy budget constraint, it is difficult for a client to decide the optimal solution in current time slot when keeping unknown about the future infomation because mutual effect.
+Mechanisms like Lyapunov Drift and Penalty Algorithm can be adopted in this problem to solve the long term dependency.
+We give the recursive definition of two virtual queues following LDP Algorithm:
+\begin{alignat}{2}
+    Q_k(t + 1) = & \max(Q_k(t) + \xi_kc_kf_k^2B_k^t-{n_k \over T}, 0), Q_k(0) = W \\
+    Z_k(t + 1) = & \max(Z_k(t) + \varepsilon_k^t - {m_k \over T}, 0), Z_k(0) = W
+\end{alignat}
+$Q_k(t)$ and $Z_k(t)$ captures long term constraint about computing resource and privacy budget respectively.
+The more stable the queues are, the better the problem can meet the constraint conditions.
+By introducing the virtual queue, a client's decision among time slots are decoupled and the original problem can be divided into single slot optimization problem.
+Take the $k$-th clients for instance, the problem at the $t$-th slot is as follows:
+\begin{alignat}{2}
+    \mathop{\min}_{B_k^t, \varepsilon_k^t} & V(\alpha_k{B_k^t}^2 + \beta_k{\varepsilon_k^t}^2 - {\log(B_k^t\varepsilon_k^t) \over \phi^t}R^t) \nonumber\\
+                                           & + Q_k(t)(\xi_kc_k{f_k}^2B_k^t - {n_k \over T}) + Z_k(t)(\varepsilon_k^t - {m_k \over T}) \\
+    \text{s.t.} & B_k^t \in [0, B_k^{max}]
+\end{alignat}
+where the aim is to minimize the client's cost and queues' stability simultaneously. $V$ is a weight factor and a larger $V$ means paying more attention to minimizing client $k$'s cost. 
+
+\subsubsection{The Optimal Decison for Clients}
+We denote a client's cost function as $F(B_k^t, \varepsilon_k^t)$ and take the first order derivative of $B_k^t$ and $\varepsilon_k^t$:
+\begin{alignat}{2}
+    {\partial{F} \over \partial{B_k^t}} = & 2V\alpha_kB_k^t - V{R^t \over \phi^tB_k^t} + Q_k(t)\xi_kc_k{f_k}^2 = 0 \\
+    {\partial{F} \over \partial{\varepsilon_k^t}} = & 2V\beta_k\varepsilon_k^t - V{R^t \over \phi^t\varepsilon_k^t} + Z_k(t) = 0
+\end{alignat} 
+So the optimal solution for the $k$-th client at the $t$-th slot is
+\begin{alignat}{2}
+    {B_k^t}^* = & \sqrt{{{R^t \over 2\alpha_k\phi^t} + \left({Q_k(t)\xi_kc_kf_k^2 \over 4V\alpha_k}\right)^2}} - {Q_k(t)\xi_kc_kf_k^2 \over 4V\alpha_k} \\
+    {\varepsilon_k^t}^* = & \sqrt{{R^t \over 2\beta_k\phi^t} + \left({Z_k(t) \over 4V\beta_k}\right)^2} - {Z_k(t) \over 4V\beta_k}
+\end{alignat}
+By observing the above formulas, ${B_k^t}^*$ and ${\varepsilon_k^t}^*$ are related to four variables: central server's reward $R^t$, mean field term $\phi^t$, virutal queues $Q_k(t)$ and $Z_k(t)$.
+${R^t}^*$ will be disscussed in the subsequent section. Algorithms to find $\phi^t$ and update virtual queues are also to be provided later.
+
+\subsection{Optimal Decision for Central Server in Stage \Rmnum{1}}
+In this section, we hope to derive central server's optimal reward ${R^t}^*$ at $t$-th slot that can minimize the central server's cost when clients' decision ${B_k^t}^*$ and ${\varepsilon_k^t}^*$ in Stage \Rmnum{2} are given.
+However, by observing (1), it is difficult to derive the close-form solution of ${R^t}^*$ directly.
+So here we try to prove ${R^t}^*$'s existence at first and then provide a heuristic algorithm to search it.
+
+\subsubsection{The Existence of ${R^t}^*$}
+Considering the $t$-th slot, We denote the server's cost function in (1) as $H(B_k^t, \varepsilon_k^t)$ and rewrite it as follows:
+\begin{alignat}{2}
+    H(B_k^t, \varepsilon_k^t) = & \underbrace{\kappa^t\sum_{k=1}^{N}{1 \over (\sum_{i=1}^{N}B_k^t)^2 \varepsilon_k^t} \nonumber}_{A} \nonumber\\
+                                & + \underbrace{\sum_{k=1}^N {{c_kB_k \over f_k} \over \sum_i^N {c_iB_i^t \over f_i}}log{{c_kB_k \over f_k} \over \sum_i^N {c_iB_i^t \over f_i}}}_{B} + \underbrace{\gamma^{t-1}R^t}_{C} \\
+\end{alignat}
+where $\kappa^t = (1+\mu(\rho\eta^2-\eta)(Q_1+Q_2))^{T-t}\rho d\beta^2\eta^2C^2$.
+We have \textit{Theorem 1} as follows:
+\begin{theorem}
+    When $R^t \in [0, \infty]$, there exists ${R^t}^*$ in the $t$-th slot that minimize $H({B^t}^*, {\varepsilon_k^t}^*)$
+\end{theorem}
+\begin{proof}
+    For ease of reading, we define $X_k^t = {Q_k(t)\xi_kc_kf_k^2 \over 2V\alpha_k}$ and $Y_k^t = {Z_k(t) \over 2V\beta_k}$. Then we have
+    \begin{alignat}{2}
+        {B_k^t}^* = & \sqrt{{{R^t \over 2\alpha_k\phi^t} + \frac{{X_k^t}^2}{4}}} - \frac{X_k^t}{2} \\
+        {\varepsilon_k^t}^* = & \sqrt{{R^t \over 2\beta_k\phi^t} + \frac{{Y_k^t}^2}{4}} - \frac{Y_k^t}{2}
+    \end{alignat}
+    So, we have
+    \begin{alignat}{2}
+        {\partial{A} \over \partial{R^t}}
+        & = \sum_{k=1}^{N}\kappa^t\left((B^t)^{-2}(\varepsilon_k^t)^{-2}\right)^{'} \nonumber \\
+        & = \sum_{k=1}^{N}\kappa^t(-2)\left[\underbrace{\left((B^t)^{-3}(\varepsilon_k^t)^{-2}\frac{\partial B^t}{\partial R^t}\right)}_{A1} + \underbrace{\left((B^t)^{-2}(\varepsilon_k^t)^{-3}\frac{\partial \varepsilon_k^t}{\partial R^t}\right)}_{A2}\right] \nonumber \\
+        & = \sum_{k=1}^{N}\kappa^t(-2)\left[\left(\sum_{k=1}^{N}\sqrt{{R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}} - {X_k^t \over 2}\right)^{-3} \right. \nonumber \\
+        & \left. \cdot \left(\sqrt{{R^t \over 2\beta_k\phi^t} + {{Y_k^t}^2 \over 4}} - {Y_k^t \over 2}\right)^{-2} \cdot \sum_{k=1}^{N} {1 \over 4\alpha_k\phi^t}\left({R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}\right)^{-\frac{1}{2}}\right] \nonumber \\
+        & + \left[\left(\sum_{k=1}^{N}\sqrt{{R^t \over 2\alpha_k\phi^t} + {{X_k^t}2 \over 4}} - {X_k^t \over 2}\right)^{-2} \right. \nonumber \\
+        & \left. \cdot \left(\sqrt{{R^t \over 2\beta_k\phi^t} + {{Y_k^t}^2 \over 4}} - {Y_k^t \over 2}\right)^{-3} \cdot {1 \over 4\beta_k\phi^t}\left({R^t \over 2\beta_k\phi^t} + {{Y_k^t}^2 \over 4}\right)^{-\frac{1}{2}} \right] \\
+
+        \frac{\partial{B}}{\partial{R^t}}
+        & = \sum_{k=1}^{N}\underbrace{\left[1 + \log\frac{\frac{c_kB_k^t}{f_k}}{\sum_{i=1}^{N}\frac{c_iB_i^t}{f_i}}\right]}_{B1} \nonumber \\
+        & \cdot \underbrace{\left[\frac{\frac{c_k{B_k^t}^{'}}{f_k}\sum_{i=1}^{N}\frac{c_iB_i^t}{f_i} - \frac{c_kB_k^t}{f_k}\sum_{i=1}^{N}\frac{c_i{B_i^t}^{'}}{f_i}}{{\left(\sum_{i=1}^{N}\frac{c_iB_i^t}{f_i}\right)}^2}\right]}_{B2} \nonumber \\
+        & = \sum_{k=1}^{N}\left[1 + \log\frac{\frac{c_k}{f_k}\left(\sqrt{{R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}} - {X_k^t \over 2}\right)}{\sum_{i=1}^{N}\frac{c_i}{f_i}\left(\sqrt{{R^t \over 2\alpha_i\phi^t} + {{X_i^t}^2 \over 4}} - {X_i^t \over 2}\right)}\right] \nonumber \\
+        & \cdot \left[\frac{\frac{c_k}{f_k}{1 \over 4\alpha_k\phi^t}\left({R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}\right)^{-\frac{1}{2}}\sum_{i=1}^{N}\frac{c_i}{f_i}\left(\sqrt{{R^t \over 2\alpha_i\phi^t} + {{X_i^t}^2 \over 4}} - {X_i^t \over 2}\right)}{{\left(\sum_{i=1}^{N}\frac{c_i}{f_i}\left(\sqrt{{R^t \over 2\alpha_i\phi^t} + {{X_i^t}^2 \over 4}} - {X_i^t \over 2}\right)\right)}^2} \right.  \nonumber \\
+        & \left. - \frac{\frac{c_k}{f_k}\left(\sqrt{{R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}} - {X_k^t \over 2}\right)\sum_{i=1}^{N}\frac{c_i}{f_i}{1 \over 4\alpha_i\phi^t}\left({R^t \over 2\alpha_i\phi^t} + {{X_i^t}^2 \over 4}\right)^{-\frac{1}{2}}}{{\left(\sum_{i=1}^{N}\frac{c_i}{f_i}\left(\sqrt{{R^t \over 2\alpha_i\phi^t} + {{X_i^t}^2 \over 4}} - {X_i^t \over 2}\right)\right)}^2}\right] \\
+
+        \frac{\partial{C}}{\partial{R^t}}
+        & = \gamma^{t-1}
+    \end{alignat}
+
+    By analysing the above result, we can get TABLE \Rmnum{1} and TABLE \Rmnum{2} as follows:
+
+    \begin{table}
+        \centering
+        \renewcommand\arraystretch{1.5}
+        \begin{tabular}{c  c  c  c  c}
+            \hline
+                                        & $\frac{\partial A1}{\partial R^t}$ & $\frac{\partial A2}{\partial R^t}$ & $\frac{\partial B1}{\partial R^t}$ & $\frac{\partial B2}{\partial R^t}$ \\
+            \hline
+            $\lim_{R^t \to 0}$          & $\infty$ & $\infty$ & $1$ & $0$\\
+            $\lim_{R^t \to \infty}$     & $0$ & $0$ & $1$ & $0$ \\
+            \hline
+        \end{tabular}
+        \caption{*}
+    \end{table}
+    \begin{table}
+        \centering
+        \renewcommand\arraystretch{1.5}
+        \begin{tabular}{c  c  c  c}
+            \hline
+                                        & $\frac{\partial A}{\partial R^t}$ & $\frac{\partial B}{\partial R^t}$ & $\frac{\partial C}{\partial R^t}$ \\
+            \hline
+            $\lim_{R^t \to 0}$          & $-\infty$ & $0$ & $\gamma^{t-1}$\\
+            $\lim_{R^t \to \infty}$     & $0$ & $0$ & $\gamma^{t-1}$\\
+            \hline
+        \end{tabular}
+        \caption{*}
+    \end{table}
+
+    Based on TABLE \Rmnum{1} and TABLE \Rmnum{2}, we can derive that $\lim_{R^t \to 0} \frac{\partial H^t}{\partial R^t}= -\infty$ and $\lim_{R^t \to \infty} \frac{\partial H^t}{\partial R^t}= \gamma^{t-1}$.
+    Meanwhile, it's obvious that $H^t$ is a continuous function in the interval of $R^t \in [0, \infty]$.
+    So there exists ${R^t}^*$ that minimizes $H^t$.
+    The proof of \textit{Theorem 1} ends. $\hfill\blacksquare$
+\end{proof} \par
+
+\subsubsection{Algorithm to Find ${R^t}^*$}
+Heuristic algorithms such as Genetic Algorithm(GA) and Paritial Swarm Optimization(PSO) have been adopted widely in tackling complex optimization problem without analytical solution.
+In this article, we adopt the PSO to find the approximately optimal solution ${R^t}^*$.
+The detailed procedure will be exhibited in the later section.
+
+\subsection{Update of Mean Field Term}
+Recall the whole derivative process: the mean field term $\phi^t$ determines ${R^t}^*$ in Stage \Rmnum{1} and further determines both ${B_k^t}^*$ and ${\varepsilon_k^t}^*$ in Stage \Rmnum{2}.
+Meanwhile, according to the definition of $\phi^t$, it is in turn affected by ${B_k^t}^*$ and ${\varepsilon_k^t}^*$, which forms a close loop.
+So we have the following theorem:
+\begin{theorem}
+    $\phi^t$ can be approximately estimated by adopting the fix point algorithm.
+\end{theorem}
+
+
+
+\section{Experiment}
+
+
+\end{document}
+
+% \left(\sqrt{{R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}} - {X_k^t \over 2}\right)
+% {1 \over 4\alpha_k\phi^t}\left({R^t \over 2\alpha_k\phi^t} + {{X_k^t}^2 \over 4}\right)^{-\frac{1}{2}}
