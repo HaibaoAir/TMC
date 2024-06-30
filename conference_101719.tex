@@ -81,15 +81,56 @@ This document is a model and instructions for \LaTeX.
 Please observe the conference page limits. 
 
 \section{System Model}
+\subsection{Marginal Upper Bound}
+We denote $F^t(w(t)) \triangleq F^t(w(t);D(t))$.
+Then the marginal upper bound can be expressed as follows:
+\begin{alignat}{2}
+    E\left[F^t(w(t))\right] - F^* & \leq q^\tau \left(E\left[F^t(w(t-1))\right] - F^*\right) \\
+                      & + \frac{1-q^\tau}{1-q} \cdot \frac{\beta\eta^2}{2{D(t)}^2}\sum_{k=1}^{N}\frac{M_k{D_k(t)}^2}{s_k} + \rho h(\tau)^2
+\end{alignat}
+\begin{proof}
+    \begin{alignat}{2}
+             & E[F(w^t)-F(w^{t-1})] \\
+        \leq & \underbrace{E[\left\langle \nabla F(w^{t-1}), w^t - w^{t-1}\right\rangle]}_A + \underbrace{\frac{\rho}{2}E[{\Vert w^t - w^{t-1} \Vert}_2^2]}_B
+    \end{alignat}
+    We focus on bounding A at first:
+    \begin{alignat}{2}
+            & E[\left\langle \nabla F(w^{t-1}), w^t - w^{t-1}\right\rangle] \\
+        =   & E[\left\langle \nabla F(w^{t-1}), (-\eta)\nabla F(w^{t-1}) + n^t\right\rangle] \\
+        =   & E[\left\langle \nabla F(w^{t-1}), (-\eta)\nabla F(w^{t-1}) \right\rangle] + E[\left\langle\nabla F(w^{t-1}), n^t\right\rangle] \\
+        =   & (-\eta)E{\Vert\nabla F(w^{t-1})\Vert}_2^2
+    \end{alignat}
+    Then, we focus on bounding B:
+    \begin{alignat}{2}
+            & \frac{\rho}{2} E {\Vert w^t - w^{t-1} \Vert}_2^2 \\
+        =   & \frac{\rho}{2} E {\Vert (-\eta) \nabla F(w^{t-1}) + n^t\Vert}_2^2 \\
+        \leq& \rho E{\Vert(-\eta)\nabla F(w^{t-1})\Vert}_2^2 + \rho E{\Vert n^t \Vert}_2^2 \\
+        \leq& \rho \eta^2 E{\Vert \nabla F(w^{t-1})\Vert}_2^2 + \rho d \sum_{k=1}^{N} p_k^t {\sigma_k^t}^2 \\
+    \end{alignat}
+
+    According to Polyak Lojasiewicz condition in 4) in assumption,
+    \begin{alignat}{2}
+        E[F(w^{t-1}-F(w^*))] \leq \frac{1}{2\mu}E{\Vert\nabla F(w^{t-1})\Vert}_2^2
+    \end{alignat}
+    We set $\eta < \frac{1}{\rho}$, then $\rho\eta^2 - \eta < 0$
+
+    Combining $A$ and $B$, we have
+    \begin{alignat}{2}
+            & E[F(w^t) - F(w^{t-1})] \\
+        \leq& (\rho \eta^2 - \eta) E{\Vert\nabla F(w^{t-1})\Vert}_2^2 + \rho d \sum_{k=1}^{N} p_k^t {\sigma_k^t}^2 \\
+    \end{alignat}
+    
+\end{proof}
 \subsection{the Utility Function of Center Server}
 \begin{alignat}{2}
-    \mathop{\min}_{L(t)} & \sum_{t=1}^{T} \frac{1}{\sqrt{D(t)T}} + \frac{1}{T} + R \\
-    \text{s.t.} & T = \max\{T | \sum_{t=1}^{T} L(t) \le \theta\} \\
+    \mathop{\min}_{L(t)} & \sum_{t=0}^{T-1} E\left[F^t(w(t))\right] - F^* + R \\
+    \text{s.t.} & \sum_{t=0}^{T-1} L(t) \leq \theta \\
 \end{alignat}
 \subsection{the Utility Function of Clients}
 \begin{alignat}{2}
-    \mathop{\max}_{D_k(t), v_k(t)} & \sum_{t=1}^{T} \frac{D_k(t)}{\sum_{i=1}^{N} D_i(t)} R - \alpha_k {v_k(t)}^2 - \beta_k {\xi_k\frac{{c_k}^3{D_k(t)}^3}{(L(t) - L_{com})^2}} \\
-    \text{s.t.} & D_k(t + 1) = \gamma D_k(t) + v_k(t)(L(t) - L_{com})
+    \mathop{\max}_{v_k(t), \varepsilon_k(t)} & \sum_{t=0}^{T-1} \frac{D_k(t)}{\sum_{i=1}^{N} D_i(t)} R - \alpha_k {v_k(t)}^2 - \beta_k {\xi_k\frac{{c_k}^3{D_k(t)}^3}{(L(t) - L_{com})^2}} \\
+    \text{s.t.} & D_k(t + 1) = \gamma D_k(t) + v_k(t)(L(t) - L_{com}) \\
+                & \sum_{t=0}^{T-1} \varepsilon_k(t) <= E_k, \forall k
 \end{alignat}
 
 \section{Algorithm}
